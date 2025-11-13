@@ -101,3 +101,120 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+//2nd one
+import 'package:flutter/material.dart';
+
+void main() => runApp(const MyApp());
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        textTheme: const TextTheme(
+          titleMedium: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+
+class GradientButton extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  const GradientButton({
+    super.key,
+    required this.text,
+    required this.icon,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme.titleMedium;
+
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        width: 300,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [Colors.teal, Colors.green],
+//             begin: Alignment.topLeft,
+//             end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(20),
+//           boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 6)],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: Colors.white),
+            const SizedBox(width: 12),
+            Text(text, style: style),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Themes & Custom Styles")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GradientButton(
+              text: "Login",
+              icon: Icons.login,
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("login Clicked")),
+                );
+              },
+            ),
+            GradientButton(
+              text: "Sign Up",
+              icon: Icons.person_add,
+              onPressed: (){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("signup Clicked")),
+                  );
+               },
+            ),
+            GradientButton(
+              text: "Settings",
+              icon: Icons.settings,
+              onPressed: (){
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Settings Clicked")),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
